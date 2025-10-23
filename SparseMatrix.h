@@ -1,5 +1,7 @@
 #ifndef SPARSEMATRIX_H
 #define SPARSEMATRIX_H
+#include "Node.h"
+
 
 class SparseMatrix
 {
@@ -17,5 +19,10 @@ public:
     SparseMatrix* multiply(SparseMatrix* second);
 
     ~SparseMatrix(); //destructor
+
+
+    private:   
+        void clear(); // i put this here cuz i´ll use this with my destructor.
 };
+
 #endif
