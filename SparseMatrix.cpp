@@ -91,11 +91,18 @@ void SparseMatrix::printStoredValues(){
         return;
     }
 
-    cout << "Matrix Value";
+    cout << "Matrix Value" << endl;
     while(current != nullptr){
-        cout << current -> getX() << ","
-            << current -> getY() << "="
+        cout << "("<<current -> getX() << ","
+            << current -> getY() << ") = "
             << current -> getValue() << endl;
         current = current -> getNext();
     }
+}
+
+int SparseMatrix::density(){
+    return 0;
+}
+SparseMatrix* SparseMatrix::multiply(SparseMatrix* secondMatrix){
+    return nullptr;
 }
