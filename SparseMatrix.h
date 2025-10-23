@@ -9,7 +9,7 @@ private:
     Node* start;
 
 public:
-    SparseMatrix(); //empty method
+    SparseMatrix(); 
 
     void add(int value, int xPos, int yPos);
     int get(int xPos, int yPos);
@@ -18,7 +18,7 @@ public:
     int density();
     SparseMatrix* multiply(SparseMatrix* second);
 
-    ~SparseMatrix(); //destructor
+    ~SparseMatrix(); //destructor following requirement 1 
 
 
     private:   

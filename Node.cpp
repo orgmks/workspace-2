@@ -29,3 +29,15 @@ Node* Node::getNext(){
 Node* Node::getPrev(){
     return prev
 ;}
+
+void Node::setValue(int v){
+    this -> value = v;
+}
+
+void Node::setNext(Node* next){
+    this -> next = next;
+}
+
+void Node::setPrev(Node* previous){
+    this -> prev = previous;
+}
