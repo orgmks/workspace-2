@@ -140,10 +140,56 @@ int SparseMatrix::density(){
     return porcentage;
 }
 SparseMatrix* SparseMatrix::multiply(SparseMatrix* secondMatrix){
+    if(start == nullptr || secondMatrix == nullptr){
+        cout << "One of the Matrices is empty" << endl;
+        return nullptr;
+    }
     
+    int maxAXIndex = 0;
+    int maxAYIndex = 0;
+    Node* currentOriginalMatrix = start;
+    while(currentOriginalMatrix != nullptr){
+        if(currentOriginalMatrix -> getX() > maxAXIndex){
+            maxAXIndex = currentOriginalMatrix -> getX();
+        }
+        if(currentOriginalMatrix -> getY() > maxAYIndex){
+            maxAYIndex = currentOriginalMatrix -> getY();
+        }
+        currentOriginalMatrix = currentOriginalMatrix->getNext();
+    }
+    
+    int maxBXIndex = 0;
+    int maxBYIndex = 0;
+    Node* currentB = secondMatrix -> start;
+    while(currentB != nullptr){
+        if(currentB -> getX() > maxBXIndex){
+            maxBXIndex = currentB -> getX();
+        }
+        if(currentB -> getY() > maxBYIndex){
+            maxBYIndex = currentB -> getY();
+        }
+        currentB = currentB->getNext();
+    }
 
+    if((maxAYIndex + 1) != (maxBXIndex + 1)){
+        cout << "Matrix multiplication not possible. Reason: Basic matrix rule" << endl;
+        return nullptr;
+    }
 
+    SparseMatrix* newMatrix = new SparseMatrix();
 
-
-    return nullptr;
+    for (int y = 0; y <= maxAYIndex; y++){
+        for (int x = 0; x <= maxBXIndex; x++){
+            int adder = 0;
+            for (int i = 0; i <= maxAXIndex; i++){
+                int first = get(i,y);
+                int second = secondMatrix -> get(x,i);
+                adder += first * second;
+            }            
+            if(adder != 0){
+                newMatrix -> add(adder, x, y);
+            }
+        }
+    }
+    return newMatrix;
 }

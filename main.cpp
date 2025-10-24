@@ -6,6 +6,7 @@ using namespace std;
 
 void ShowMenu(){
     SparseMatrix myMatrix;
+    SparseMatrix* second = new SparseMatrix();
     int option=0;
 
     while(option != -1){
@@ -175,11 +176,106 @@ void ShowMenu(){
                 break;
 
             }
-            case 6: {
-                cout <<"Multiply..." <<endl;
-                break;
 
+            case 6: {
+                int keepAdding = 0;
+                cout << "Create your second matrix to multiply it with your original one" << endl;
+                cout << "NOTE: IF IT DOESNT FOLLOW THE BASIC RULES OF MATRIX MULTIPLICATION, IT WONT WORK" << endl;
+                
+                while (keepAdding != -1){
+                    cout << "\n=============Menu=============";
+                    cout << "\n=   1.Add in second matrix    =";
+                    cout << "\n=    2.Multiply Matrices      =";
+                    cout << "\n=         -1.Exit             =";
+                    cout << "\n==============================" << endl;
+                    cout << "Select a Option: ";
+                    cin >> keepAdding;
+                    
+                    switch (keepAdding){
+                        case 1:{
+
+                            //REUSED CODE FROM THE FIRST ADDING SYSTEM
+                            int value;
+                            int x;
+                            int y;
+
+                            while (true){ //error test in value
+                            cout << "Insert value: ";
+                            cin >> value;
+                            if(cin.fail()){ //I reused code here
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                                cout << "Invalid option. Please retry "<< endl;            
+                                continue;
+                                }
+                            break;            
+                            }
+                            while (true){ 
+                            cout << "Insert xPos: ";
+                            cin >> x;
+                            if(cin.fail()){ 
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                                cout << "Invalid option. Please retry"<< endl;            
+                                continue;
+                                }
+                            break;            
+                            }
+                            while (true){ 
+                            cout << "Insert yPos: ";
+                            cin >> y;
+                            if(cin.fail()){ 
+                                cin.clear();
+                                cin.ignore(1000,'\n');
+                                cout << "Invalid option. Please retry "<< endl;;            
+                                continue;
+                                }
+                            break;            
+                            }
+                            second -> add(value,x,y);
+                            cout << "==========================================================================" <<endl;
+                            cout << "                   !!!!!!!Value added success!!!!!!!                     " << endl;
+                            cout << "==========================================================================" <<endl;    
+                            break;
+                        }
+
+                        case 2: {
+
+                            cout << "==========================================================================" <<endl;
+                            cout << "                        Multiplying both Matrices                         " << endl;
+                            cout << "==========================================================================" <<endl;    
+                            
+                            
+                            cout << "===========================YOUR MATRIX===================================="<< endl;
+                            myMatrix.printStoredValues();
+                            cout << "==========================================================================" <<endl;    
+                            
+                            
+                            cout << "===========================SECOND MATRIX==================================" << endl;
+                            second->printStoredValues();
+                            cout << "==========================================================================" <<endl;    
+                            
+                            
+                            SparseMatrix* newMatrix = myMatrix.multiply(second);
+                            
+                            if(newMatrix != nullptr){
+                                cout << "==========================================================================" <<endl;    
+                                cout << "                    Matrices multiplied successfully                      " << endl;
+                                cout << "==========================================================================" <<endl;    
+                                newMatrix->printStoredValues();
+                                cout << "==========================================================================" <<endl;    
+                            } else {
+                                cout << "An error occurred while trying to multiply" << endl;
+                            }
+                            break;
+                        }
+                    }
+                }
             }
+                
+
+            break;
+            
             case -1: {
                 cout <<"Turning off the system" <<endl;
                 break;
@@ -193,10 +289,8 @@ void ShowMenu(){
         }
     }
 }
-int main(int argc, char const *argv[])
-{
+
+int main(int argc, char const *argv[]){
     ShowMenu();
     return 0;
 }
-
-
