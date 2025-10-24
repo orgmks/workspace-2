@@ -19,10 +19,6 @@ public:
     SparseMatrix* multiply(SparseMatrix* second);
 
     ~SparseMatrix(); //destructor following requirement 1 
-
-
-    private:   
-        void clear(); // i put this here cuz i´ll use this with my destructor.
 };
 
 #endif

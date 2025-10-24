@@ -33,105 +33,24 @@ void ShowMenu(){
             continue;
         }
 
-        switch (option) 
-        {
-        case 1: {
-            int value;
-            int x;
-            int y;
+        switch (option) {
+            case 1: {
+                int value;
+                int x;
+                int y;
 
-            while (true){ //error test in value
-            cout << "Insert value: ";
-            cin >> value;
-            if(cin.fail()){ //I reused code here
-                cin.clear();
-                cin.ignore(1000,'\n');
-                cout << "Invalid option. Please retry "<< endl;            
-                continue;
+                while (true){ //error test in value
+                cout << "Insert value: ";
+                cin >> value;
+                if(cin.fail()){ //I reused code here
+                    cin.clear();
+                    cin.ignore(1000,'\n');
+                    cout << "Invalid option. Please retry "<< endl;            
+                    continue;
+                    }
+                break;            
                 }
-            break;            
-            }
-            while (true){ 
-            cout << "Insert xPos: ";
-            cin >> x;
-            if(cin.fail()){ 
-                cin.clear();
-                cin.ignore(1000,'\n');
-                cout << "Invalid option. Please retry"<< endl;            
-                continue;
-                }
-            break;            
-            }
-            while (true){ 
-            cout << "Insert yPos: ";
-            cin >> y;
-            if(cin.fail()){ 
-                cin.clear();
-                cin.ignore(1000,'\n');
-                cout << "Invalid option. Please retry "<< endl;;            
-                continue;
-                }
-            break;            
-            }
-            myMatrix.add(value,x,y);
-            cout << "==========================================================================" <<endl;
-            cout << "                   !!!!!!!Value added success!!!!!!!                     " << endl;
-            cout << "==========================================================================" <<endl;
-
-            break;
-        }
-        case 2: {
-            int x;
-            int y;
-            while (true){
-                cout << "Insert xPos: ";
-                cin >> x;
-                if(cin.fail()){ 
-                cin.clear();
-                cin.ignore(1000,'\n');
-                cout << "Invalid option. Please retry"<< endl;            
-                continue;
-                }
-                break;
-            }
-            
-            while (true){
-                cout << "Insert yPos: ";
-                cin >> y;
-                if(cin.fail()){ 
-                cin.clear();
-                cin.ignore(1000,'\n');
-                cout << "Invalid option. Please retry"<< endl;            
-                continue;
-                }
-                break;
-            }
-            
-            
-            int value = myMatrix.get(x,y);
-            cout << "==========================================================================" <<endl;
-            cout << "             Your Value from X: " << x << " and Y : " << y << " is " << value << endl;
-            cout << "==========================================================================" <<endl;
-            break;
-        }
-        case 3: {
-            
-            cout << "==========================================================================" <<endl;
-            cout << "                             Matrix content                               " <<endl;
-            cout << "==========================================================================" <<endl;
-            
-            myMatrix.printStoredValues();
-                        
-            cout << "==========================================================================" <<endl;
-
-
-            break;
-        }
-        case 4: {
-            int x;
-            int y;
-            
-            while (true){
+                while (true){ 
                 cout << "Insert xPos: ";
                 cin >> x;
                 if(cin.fail()){ 
@@ -139,57 +58,138 @@ void ShowMenu(){
                     cin.ignore(1000,'\n');
                     cout << "Invalid option. Please retry"<< endl;            
                     continue;
+                    }
+                break;            
                 }
-                break;
-            }
-            while (true){
+                while (true){ 
                 cout << "Insert yPos: ";
                 cin >> y;
                 if(cin.fail()){ 
                     cin.clear();
                     cin.ignore(1000,'\n');
+                    cout << "Invalid option. Please retry "<< endl;;            
+                    continue;
+                    }
+                break;            
+                }
+                myMatrix.add(value,x,y);
+                cout << "==========================================================================" <<endl;
+                cout << "                   !!!!!!!Value added success!!!!!!!                     " << endl;
+                cout << "==========================================================================" <<endl;
+
+                break;
+            }
+            case 2: {
+                int x;
+                int y;
+                while (true){
+                    cout << "Insert xPos: ";
+                    cin >> x;
+                    if(cin.fail()){ 
+                    cin.clear();
+                    cin.ignore(1000,'\n');
                     cout << "Invalid option. Please retry"<< endl;            
                     continue;
+                    }
+                    break;
+                }
+                
+                while (true){
+                    cout << "Insert yPos: ";
+                    cin >> y;
+                    if(cin.fail()){ 
+                    cin.clear();
+                    cin.ignore(1000,'\n');
+                    cout << "Invalid option. Please retry"<< endl;            
+                    continue;
+                    }
+                    break;
+                }
+                
+                
+                int value = myMatrix.get(x,y);
+                cout << "==========================================================================" <<endl;
+                cout << "             Your Value from X: " << x << " and Y : " << y << " is " << value << endl;
+                cout << "==========================================================================" <<endl;
+                break;
+            }
+            case 3: {
+                
+                cout << "==========================================================================" <<endl;
+                cout << "                             Matrix content                               " <<endl;
+                cout << "==========================================================================" <<endl;
+                
+                myMatrix.printStoredValues();
+                            
+                cout << "==========================================================================" <<endl;
+
+
+                break;
+            }
+            case 4: {
+                int x;
+                int y;
+                
+                while (true){
+                    cout << "Insert xPos: ";
+                    cin >> x;
+                    if(cin.fail()){ 
+                        cin.clear();
+                        cin.ignore(1000,'\n');
+                        cout << "Invalid option. Please retry"<< endl;            
+                        continue;
+                    }
+                    break;
+                }
+                while (true){
+                    cout << "Insert yPos: ";
+                    cin >> y;
+                    if(cin.fail()){ 
+                        cin.clear();
+                        cin.ignore(1000,'\n');
+                        cout << "Invalid option. Please retry"<< endl;            
+                        continue;
+                    }
+                    break;
+                }
+
+                if(myMatrix.get(x,y) != 0){
+                    myMatrix.remove(x,y);
+                    cout << "==========================================================================" <<endl;
+                    cout << "                           Element destroyes                              " << endl;
+                    cout << "==========================================================================" <<endl;
+                } else {
+                    cout << "==========================================================================" <<endl;
+                    cout << "                  There is no element to be destroyed                     " << endl;
+                    cout << "==========================================================================" <<endl;
+
                 }
                 break;
             }
 
-            if(myMatrix.get(x,y) != 0){
-                myMatrix.remove(x,y);
-                cout << "==========================================================================" <<endl;
-                cout << "                           Element destroyes                              " << endl;
-                cout << "==========================================================================" <<endl;
-            } else {
-                cout << "==========================================================================" <<endl;
-                cout << "                  There is no element to be destroyed                     " << endl;
-                cout << "==========================================================================" <<endl;
+            case 5: {
+                int porcentage = myMatrix.density();
+                if(porcentage != 0){
+                    cout << "Density : " << porcentage << " %" << endl;
+                }
+                break;
 
             }
-            break;
-        }
+            case 6: {
+                cout <<"Multiply..." <<endl;
+                break;
 
-        
-        
-        case 5: {
-            cout <<"Density..." <<endl;
-            break;
+            }
+            case -1: {
+                cout <<"Turning off the system" <<endl;
+                break;
 
-        }
-        case 6: {
-            cout <<"Multiply..." <<endl;
-            break;
+            }
+            default: {
+                cout << "Invalid option. Please retry: ";
+                continue;
 
-        }
-        case -1: {
-            cout <<"Turning off the system" <<endl;
-            break;
-
-        }
-        default: {
-            cout << "Invalid option. Please retry: ";
-            continue;
-
-        }
+            }
         }
     }
 }

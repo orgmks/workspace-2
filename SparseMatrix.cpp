@@ -8,13 +8,9 @@ SparseMatrix::SparseMatrix(){
 }
 
 SparseMatrix::~SparseMatrix(){
-    clear();
-}
-
-void SparseMatrix::clear(){
     Node* current = start;
     while(current != nullptr){
-        Node* temp = current ->getNext();
+        Node* temp = current -> getNext();
         delete current;
         current = temp;
     }
@@ -90,19 +86,64 @@ void SparseMatrix::printStoredValues(){
         cout << "Empty Matrix" << endl;
         return;
     }
+    int maxPosX = 0;
+    int maxPosY = 0;
+    
 
-    cout << "Matrix Value" << endl;
-    while(current != nullptr){
-        cout << "("<<current -> getX() << ","
-            << current -> getY() << ") = "
-            << current -> getValue() << endl;
+    while (current != nullptr){
+        if(current -> getX() > maxPosX){
+            maxPosX = current -> getX();
+        }
+        if(current -> getY() > maxPosY){
+            maxPosY = current -> getY();
+        }
         current = current -> getNext();
+    }
+    
+    for (int i = 0; i <= maxPosY; i++){
+        for (int j = 0; j <= maxPosX; j++){
+            cout << get(j,i) << "\t";
+        }
+        cout << endl;
     }
 }
 
 int SparseMatrix::density(){
-    return 0;
+    if(start == nullptr){
+        cout << "The Matrix is empty right now" << endl;
+        return 0;
+    }
+    int elements = 0;
+    int maxPosX = 0;
+    int maxPosY = 0;
+    Node* current = start;
+    while (current != nullptr){
+        //the program found a digit no 0
+        elements = elements + 1;
+        if(current -> getX() > maxPosX){
+            maxPosX = current -> getX();
+        }
+        if(current -> getY() > maxPosY){
+            maxPosY = current -> getY();
+        }
+        current = current -> getNext();
+    }
+
+    int allPossibleCases = (maxPosX + 1) * (maxPosY + 1);
+    float density = (1.0 * elements)/allPossibleCases; 
+    //Here I got a bit of help and some info about how C++ works. I read that when you do a division, C++ automatically converts the result into
+    //an integer. For example,
+    //1/9 = 0.111111 → but C++ will just give you 0.
+    //So I multiplied one of the numbers by 1.0 to avoid that and get the real percentage
+    int porcentage = density * 100;
+
+    return porcentage;
 }
 SparseMatrix* SparseMatrix::multiply(SparseMatrix* secondMatrix){
+    
+
+
+
+
     return nullptr;
 }
