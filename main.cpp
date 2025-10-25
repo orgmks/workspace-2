@@ -1,3 +1,6 @@
+#include <chrono>
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include "SparseMatrix.h"
 #include "Node.h"
@@ -17,6 +20,7 @@ void ShowMenu(){
         cout << "\n=         4.Remove            =";
         cout << "\n=         5.Density           =";
         cout << "\n=         6.Multiply          =";
+        cout << "\n=          7.Test             =";
         cout << "\n=         -1.Exit             =";
         cout << "\n==============================" << endl;
         cout << "Select a Option: ";
@@ -271,10 +275,91 @@ void ShowMenu(){
                         }
                     }
                 }
+                break;
             }
+
+            case 7: {
+                using namespace std::chrono;
+                int sets[] = {50,100,250,300,500,750,1000,1500,2000,5000};
+                float den[] = {0.3, 0.8};
+                int user;
                 
 
-            break;
+                srand(time(nullptr)); //i got no idea how to use this library, i get help from ChatGPT
+                for (int i = 0; i < 10; i++){
+                    cout<< i+1 << ") " << sets[i] <<endl;
+                }
+
+                cout << "Choose one: ";
+                cin >> user;
+                
+                if(cin.fail() || user < 1 || user > 10){
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+                    cout << "Option not founded '\n'";
+                    break;
+                }
+
+                int sizeChoosed = sets[user-1];
+                
+                for (float d : den){
+                    cout << "==========================================================================" <<endl;    
+                    cout << "                  Cleaning matrix before using it...                      " << endl;
+                    cout << "==========================================================================" <<endl;  
+                    
+                    cout << "Testing with : " << d * 100 << "%" << endl;
+                    
+                    int allElements = (1.0* sizeChoosed*sizeChoosed* d);
+
+                    myMatrix = SparseMatrix();
+
+                    auto startInsert = high_resolution_clock::now();
+                    for (int i = 0; i < allElements; i++){
+                        int x = rand() % sizeChoosed;
+                        int y = rand() % sizeChoosed;
+                        int value = rand() % 100 + 1;
+
+                        if(myMatrix.get(x,y) == 0){
+                            myMatrix.add(value,x,y);
+                        }
+                    }
+                    auto endInsert = high_resolution_clock::now();
+                    auto insertTime = duration_cast<milliseconds>(endInsert-startInsert).count();
+
+
+                    auto startGetting = high_resolution_clock::now();
+                    for (int i = 0; i < allElements; i++){
+                        int x = rand() % sizeChoosed;
+                        int y = rand() % sizeChoosed;
+                        myMatrix.get(x,y);
+                    }
+                    auto endGetting = high_resolution_clock::now();
+                    auto getTime = duration_cast<milliseconds>(endGetting - startGetting).count();
+
+
+                    auto startRemoving = high_resolution_clock::now();
+                    for (int i = 0; i < allElements/2; i++){
+                        int x = rand() & sizeChoosed;
+                        int y = rand() & sizeChoosed;
+                        myMatrix.remove(x,y);
+                    }
+                    auto endRemoving = high_resolution_clock::now();
+                    auto removeTime = duration_cast<milliseconds>(endRemoving - startRemoving).count();
+
+                    cout << "Result of test" << endl;
+                    cout << "Time of Insertion :" << insertTime << "ms" << endl;
+                    cout << "Time of Get :" << getTime << "ms" << endl;
+                    cout << "Time of Removing :" << removeTime << "ms" << endl;
+                    
+                    myMatrix = SparseMatrix();
+
+                    
+                }
+                cout << "==========================================================================" <<endl;    
+                cout << "                           Matrix Cleared                                 " << endl;
+                cout << "==========================================================================" <<endl;  
+                break;
+            }
             
             case -1: {
                 cout <<"Turning off the system" <<endl;
@@ -289,6 +374,13 @@ void ShowMenu(){
         }
     }
 }
+
+
+
+
+
+
+
 
 int main(int argc, char const *argv[]){
     ShowMenu();
